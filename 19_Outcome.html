@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var foo = "hello";
+		(function () { 
+		   var bar = "World";
+		   // hello world right? because of the closure
+		   console.log( foo + bar); 
+		})();
+		// error right? because bar udefined because is private to the immediate function
+		console.log( foo + bar);
+
+	</script>
+</body>
+</html>

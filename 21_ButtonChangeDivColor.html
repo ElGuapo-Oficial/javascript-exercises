@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.coloredDiv{
+			background-color: red;
+			width: 50px;
+			height: 50px;
+			margin: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="myDiv" class="coloredDiv"></div>
+	<button id="myButton" type="button">Change Color</button>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var colors = ['red', 'blue', 'green', 'yellow'];
+		var i = 0;
+
+		var myButton = document.getElementById('myButton');
+		var myDiv = document.getElementById('myDiv');
+
+		myButton.addEventListener('click', changeBKColor);
+
+		function changeBKColor(){
+			var color = i++ % colors.length;
+			myDiv.style.backgroundColor = colors[color];
+		}
+
+	</script>
+</body>
+</html>

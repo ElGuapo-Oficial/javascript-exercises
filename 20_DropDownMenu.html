@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style media="screen">
+		body{ margin: 0px;}
+
+		div#myheader{
+			height: 100px;
+			background: gray;
+			border-bottom: red 1px solid;
+		}
+
+		div#logo{
+			height: 75px;
+			border: green 1px dashed;
+			font-size: 44px;
+			padding: 0px 12px;
+		}
+
+		div#header-menu-system{
+			margin-left: 16px;
+		}
+
+		div#header-menu-system > div{
+			/*border: 1px solid black;*/
+			float: left;
+			margin: 0px 20px;
+		}
+
+		div.dropmenus{
+			display: none;
+			position: absolute;
+			top: 100px;
+			width: 120px;
+			background: pink;
+			z-index: 2;
+			padding: 4px;
+			border: yellow 3px solid;
+			border-top: none;
+			border-radius: 0px 0px 8px 8px;
+		}
+
+		div.dropmenus > a {
+			display: block;
+			margin: 4px;
+			padding: 7px;
+			font-size: 14px;
+			text-decoration: none;
+			background: cyan;
+			border: 1px solid black;
+			border-radius: 3px;
+			color: orange;
+		}
+
+		div.dropmenus > a:hover {
+			background: white;
+			border: 1px solid green;
+			color: red;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		var menus = ["dropmenu1", "dropmenu2", "dropmenu3"];
+
+		function dropMenu(theActiveMenu){
+			for (var menu in menus){
+				// console.log(menus[menu]);
+				if (menus[menu] != theActiveMenu){
+					document.getElementById(menus[menu]).style.display = "none";
+				}
+			}
+
+			document.getElementById(theActiveMenu).style.display = 'block';
+		}
+
+	</script>
+</head>
+<body>
+	<div id="myheader">
+		<div id="logo">Logo goes here</div>
+
+		<div id="header-menu-system">
+			<div id="cont1">
+				<!--  the # symbol navigates nowhere-->
+				<a href="#" onclick="return false;" onmousedown="dropMenu('dropmenu1')">Services</a>
+				<div id="dropmenu1" class="dropmenus">
+					<a href="services.php?x=pool">Pool Cleaning</a>
+					<a href="services.php?x=yard">Yard Work</a>
+					<a href="services.php?x=pest">Pest Removal</a>
+				</div>
+			</div>
+			<div id="cont2">
+				<a href="#" onclick="return false;" onmousedown="dropMenu('dropmenu2')">Locations</a>
+				<div id="dropmenu2" class="dropmenus">
+					<a href="services.php?x=pool">Queens</a>
+					<a href="services.php?x=yard">Brooklyn</a>
+					<a href="services.php?x=pest">Bronx</a>
+				</div>
+			</div>
+			<div id="cont3">
+				<a href="#" onclick="return false;" onmousedown="dropMenu('dropmenu3')">Staff</a>
+				<div id="dropmenu3" class="dropmenus">
+					<a href="services.php?x=pool">George</a>
+					<a href="services.php?x=yard">Allen</a>
+					<a href="services.php?x=pest">Franl</a>
+				</div>
+			</div>
+			<div>
+				<a href="somepage.php">Contact Us</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="rest-of-page" onmouseover="dropMenu()" style="height:500px">
+
+	</div>
+
+	<script type="text/javascript">
+		'use strict';
+	</script>
+</body>
+</html>

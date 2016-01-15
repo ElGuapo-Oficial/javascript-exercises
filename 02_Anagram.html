@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src=".\bower_components\jquery\dist\jquery.js"></script>
+	<title>Anagram</title>
+	<style type="text/css">
+		.resultsArea{
+	        border: 1px solid;
+	        height: 150px;
+	        /*float: left;*/
+        	width: 30%;
+      	}
+	</style>
+</head>
+<body>
+<!-- 	<div id="main">
+		<div>
+			<input type="text" name="Anagram" id="anagram">
+		</div>
+	</div> -->
+
+    <div id = "main" class = "border">
+    	<input id="inAnagramWord" type="text" name="findAnagram">
+    	<input id="btnFindAnagram" type="submit" value="Find">
+    	<div id="results" class="resultsArea"></div>
+    </div>
+    <!-- The general idea is to load a dictionary of words, use the ordered alphabetically words as a "key" or property of a huge object. Each property will have an array with the words that matches that specific key !-->
+
+    <!-- To find anagrams all you have to do is to get the useer word, order it alphabetically and search for that key in the huge array -->
+	<script type="text/javascript">
+		var ModelDictionary = (function(){
+        	var dict = {}, subscribers = [];
+ 
+			// Do a jQuery Ajax request for the text dictionary
+			$.get( "dictionary/dict.txt", function( txt ) {
+			    var words = txt.split( "\n" );
+			    notifySubscribers(words);
+		   	});
+
+		   	function notifySubscribers(words){
+		   		for (var i = 0; i < subscribers.length; i++)
+		   			subscribers[i].Update(words);
+		   	}
+
+		   	return {
+		   		Subscribe: function(object){
+		   			console.log("subscribing");
+		   			subscribers.push(object);
+		   		}
+		   	}
+	    })();
+
+	    var Presenter = (function(){
+	    	var words = [];
+	    	var dictionary = {};
+
+	    	function hashKeyWords(words){
+	    		var key;
+	    		for (i = 0; i < words.length; i++){
+	    			// order word alphebetically to create a key
+	    			key = words[i].split('').sort().join('');
+	    			// if key already exist push the word in to the array
+	    			if (dictionary[key]){
+	    				dictionary[key].push(words[i]);
+					// if key doesn't exist, assign an array with the word on it	
+	    			} else {
+	    				dictionary[key]=[words[i]];
+	    			}
+	    		}
+	    	}
+
+	    	function findAnagram(word){
+	    		var key = word.toUpperCase().split('').sort().join('');
+	    		return dictionary[key] || [];
+	    	}
+
+	    	return {
+	    		Update: function(dictionary_words){
+					words = dictionary_words;
+					hashKeyWords(words);
+		   		},
+
+		   		setFindAnagramButton: function(element){
+		   			button = element;
+		   			button.addEventListener('click', function(){
+		   				var anagramWord = document.getElementById("inAnagramWord").value;
+		   				var anagramResults = document.getElementById("results");
+		   				var results = findAnagram(anagramWord);
+		   				
+		   				for (var i = 0; i < results.length; i++){
+		   					anagramResults.innerText += results[i] + "\n";
+		   				}
+		   			});
+		   		}
+		    }
+	    })();
+
+		document.addEventListener("DOMContentLoaded", function(){
+			ModelDictionary.Subscribe(Presenter);
+			Presenter.setFindAnagramButton(document.getElementById("btnFindAnagram"));
+      	});
+	</script>
+</body>
+</html>

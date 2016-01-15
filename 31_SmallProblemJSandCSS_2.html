@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style media="screen">
+		p:nth-child(2n){
+			display: none;
+		}
+
+		.toggle + p {
+			display: block;
+		}
+
+	</style>
+</head>
+
+<body>
+	<p>Toggle 1</p>
+	<p>I will be hidden or visible 1</p>
+
+	<p>Toggle 2</p>
+	<p>I will be hidden or visible 2</p>
+
+	<p>Toggle 3</p>
+	<p>I will be hidden or visible 3</p>
+
+	<p>Toggle 4</p>
+	<p>I will be hidden or visible 4</p>
+
+	<div class="">
+		a
+	</div>
+
+	<script type="text/javascript">
+		'use strict';
+		var body = document.getElementsByTagName('body')[0];
+		var pElements = document.getElementsByTagName('P');
+
+		function hideAllP(){
+			var pArray = [].slice.call(pElements);
+
+			for (var p in pArray){
+				pElements[p].className = "";
+			}
+		}
+
+		body.addEventListener("click", function(e){
+			hideAllP();
+			if (e.target.tagName == "P")
+				e.target.className = e.target.className === "toggle" ? "" : "toggle";
+		});
+
+	</script>
+</body>
+</html>

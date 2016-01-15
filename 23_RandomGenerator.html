@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Random Generator</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		// 'use strict';
+
+		function getRandom(min, max){
+			getRandom.values = getRandom.values || {};
+			// calculate object lenght with for in
+			//while(object.length < max - min)
+
+			while (true){
+				newNumber = Math.floor(Math.random()*(max - min) + min);
+				if (!getRandom.values[newNumber]){
+					getRandom.values[newNumber] = true;
+					return newNumber;
+				}
+			}
+		}
+		// function generateRandom (min, max) {
+	  //   generateRandom.values = generateRandom.values || {};
+	  //   var current;
+	  //   while (!generateRandom.values[current]){
+    //     current = Math.floor(Math.random()*(max - min) + min);
+    //     generateRandom.values[current] = true;
+    //     return current;
+	  //   }
+		// }
+
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+		console.log(getRandom(3,4));
+
+
+
+
+
+
+	</script>
+</body>
+</html>

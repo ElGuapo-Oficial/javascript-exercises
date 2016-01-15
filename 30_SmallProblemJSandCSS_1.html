@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style media="screen">
+		div{
+			display: none;
+		}
+
+		a:active{
+			color: green;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div>Some text goes here</div>
+	<a id='id1'>Show</a>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var aTag = document.getElementsByTagName('a')[0];
+		aTag.addEventListener("click", function(){
+			var divTag = document.getElementsByTagName('div')[0];
+			divTag.style.display = "block";
+		});
+		console.log(x);
+
+	</script>
+</body>
+</html>

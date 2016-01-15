@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style media="screen">
+		body{
+			text-align: center; /*aguas*/
+		}
+		#mainDiv{
+			display: inline-block; /*aguas!! para que se haga del tamanio del contenido*/
+			border: 1px solid red;
+		}
+
+		#mainDiv > div > div{
+			box-sizing: border-box;
+			height: 200px;
+			width: 200px;
+			margin: 25px;
+			border: 1px solid;
+			display: inline-block;
+			background-color: black;
+			color: white;
+			text-align: center;
+			text-transform: uppercase;
+			line-height: 200px; /*aguas*/
+		}
+	</style>
+</head>
+<body>
+	<div id="mainDiv" class="">
+		<div class="">
+			<div class="">1</div>
+			<div class="">2</div>
+			<div class="">3</div>
+		</div>
+		<div class="">
+			<div class="">4</div>
+			<div class="">5</div>
+			<div class="">6</div>
+		</div>
+		<div class="">
+			<div class="">7</div>
+			<div class="">8</div>
+			<div class="">9</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var boxChanger = (function(){
+			return {
+				changeBox: function(){
+					setTimeout(function(){
+						// document.getElementById('fifth').innerHTML = "<b>i did it!</b>";
+						document.querySelector("#mainDiv > div:nth-child(2) > div:nth-child(2)").innerHTML = "<b>i did it!</b>";
+					}, 1500);
+				}
+			}
+		})();
+
+		boxChanger.changeBox();
+	</script>
+</body>
+</html>

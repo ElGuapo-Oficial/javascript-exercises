@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		// var myArray = [1, 2, 3];
+		// var x = permutator(myArray);	
+
+		// function permutator(inputArr) {
+		//   var results = [];
+
+		//   function permute(arr, memo) {
+		//     var cur, memo = memo || [];
+
+		//     for (var i = 0; i < arr.length; i++) {
+		//       // pull element from the array
+		//       cur = arr.splice(i, 1);
+		//       // if last element push it to result array
+		//       if (arr.length === 0) {
+		//         results.push(memo.concat(cur));
+		//       }
+		//       // recursion with copy of the sliced array and the memo array (The sliced elements)
+		//       permute(arr.slice(), memo.concat(cur));
+
+		//       arr.splice(i, 0, cur[0]);
+		//     }
+
+		//     return results;
+		//   }
+
+		//   return permute(inputArr);
+		// }
+
+		// for (var i = 0; i < x.length; i++){
+		// 	console.log(x[i]);
+		// }
+		var resultSet = [];
+
+		function permutations ( word ) {
+		    var used = []; //booleans
+		    var result = ''; // stringBuilder();
+		    var input = word;
+
+		    (function permute( ) {
+		            if( result.length === input.length ){
+		                //console.log( result );
+		                resultSet.push(result);
+		                return;
+		            }
+		            for( var i = 0; i < input.length; i++ ){
+		                if( used[i] === true ) {
+		                    continue;
+		                }
+		                result += input.charAt(i);
+		                used[i] = true;
+		                permute();
+		                used[i] = false;
+		                result = result.slice( 0 , - 1 );
+		            }
+		    })();
+		}
+
+		permutations('123');
+
+		for (var i = 0; i < resultSet.length; i++){
+			console.log(resultSet[i]);
+		}
+
+	</script>
+</body>
+</html>

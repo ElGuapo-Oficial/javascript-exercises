@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		"use strict";
+
+		Array.prototype.duplicate = function(){
+			var length = this.length;
+			for (var i = 0; i < length; i++){
+				this.push(this[i]);
+			}
+		}
+
+		var a = [1, 5, 9, 11];
+		a.duplicate();
+
+		for (var i = 0; i < a.length; i++){
+			console.log(a[i]);
+		}
+		// console.log(a.duplicate());
+
+	</script>
+</body>
+</html>

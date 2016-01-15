@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src=".\bower_components\jquery\dist\jquery.js"></script>
+	<title>Animation</title>
+	<style type="text/css">
+		#mainDiv{
+			margin: 0 auto;
+			background-color: yellow;
+			width: 300px;
+			height: 300px;
+			border: 1px solid black;
+		}
+
+		.myCanvas{
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+			/*margin: 0 auto;*/
+      	}
+	</style>
+</head>
+<body>
+	<div id="mainDiv">
+		<canvas id="myCanvas" width="300" height="300">
+		</canvas>
+	</div>
+ 
+	<script type="text/javascript">
+		'use strict'
+
+		var canvas = document.getElementById('myCanvas')
+
+		var DanielsBounce = (function(){
+			// var v0 = Math.sqrt((300-2*y)||16*16);
+			var v0, pos, g=-1, t;
+
+			return {
+				init: function(y){
+					v0=Math.sqrt((590-2*y)||16*16);
+					t=v0;
+				},
+
+				yCoordinateWithGravity: function(){
+				    if(pos <= 0){
+				        v0 = v0 * 0.9;
+				        t = 1;
+				    }
+				    pos=Math.max(0,v0*t+(0.5*g*Math.pow(t++,2)));
+				    return 290-pos;
+				}
+			}
+		})();
+
+		var canvasController = (function(){
+			var ctx = canvas.getContext('2d');
+			var stop;
+
+			function getCursorPosition(event) {
+			    var rect = canvas.getBoundingClientRect();
+			    var x = event.clientX - rect.left;
+			    var y = event.clientY - rect.top;
+			    return { x: x, y: y };
+			}
+
+			function clearCanvas(){
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+			}
+
+			function getYCoordinate(y){
+				var direction = 1;
+				if (y > canvas.height){
+					console.log("out of bounds");
+				}
+				
+				return y * 1.9;
+			}
+
+			function drawBouncingCircle(cursorPosition){
+				clearCanvas();
+				ctx.beginPath();
+				ctx.arc(cursorPosition.x, cursorPosition.y, 10, 0, Math.PI*2);
+				ctx.fillStyle = 'blue';
+				ctx.fill();
+				// var y = getYCoordinate(cursorPosition.y);
+				var y = DanielsBounce.yCoordinateWithGravity()
+
+				stop = setTimeout(drawBouncingCircle, 50, {x: cursorPosition.x, y: y})
+			}
+
+			return{
+				main: function(e){
+					clearTimeout(stop);
+					var cursorPosition = getCursorPosition(e);
+					DanielsBounce.init(cursorPosition.y);
+					drawBouncingCircle(cursorPosition);
+				}
+			}
+		}());
+
+		document.addEventListener("DOMContentLoaded", function(){
+			canvas.addEventListener("click", canvasController.main);
+		});
+
+	</script>
+</body>
+</html>

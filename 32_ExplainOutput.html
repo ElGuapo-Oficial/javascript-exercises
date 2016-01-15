@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style media="screen">
+		p:nth-child(2n){
+			display: none;
+		}
+
+		.toggle + p {
+			display: block;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		// Explain the output of the following code:
+
+		// the context is the object that holds the prop function, so this and self = obj inside prop
+		// But the immediate function has a context for it self.
+		// this inside immediate anon func, it's meaningless.
+		// this suggests later use of created object, and immediate functions have opposite purpose
+		// - to destroy it's namespase right after execution. In this example this shall refer
+		// to global object, window. on strict mode this is undefined
+
+		function myLog() {
+		   return {
+		      bar: 'bar',
+		      foo: 'foo',
+		      prop: function () {
+		          var self = this;
+		          console.log(self.bar); // self = this; result bar
+		          console.log(this.foo); // this = obj; result foo
+		          (function() {
+		             console.log(self.bar);  // closure self = this = obj; result self bar
+		             console.log(this.foo);  // although "this" referes to windows inside an immediate function
+								 											   // there is no foo property under windows so "undefined"
+																				 // On strict mode "this" is undefined
+		          })();
+		      }
+		   };
+		}
+
+		var obj = myLog();
+		obj.prop();
+
+		function x (){
+			console.log(this);
+			y = 7;
+		}
+		x();
+		console.log(y);
+
+	</script>
+</body>
+</html>

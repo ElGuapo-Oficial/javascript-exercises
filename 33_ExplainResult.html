@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		// Explain the difference, if any, between the following two functions.
+		// Will the returned value be the same if compared?
+		function func1() { return { prop:"foo"}; }
+		function func2() { return { prop:'foo'}; }
+
+		// each function returns a similar object but the memory reference is different for each one
+		// so no, the returned value will no be the same
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		function log(v){
+		  if(v){ console.log('ok');}
+		  else{ console.log('no'); }
+		}
+		 
+		log(true);
+		log(false);
+		log('true');
+		log('false'); // ok
+		log({});
+		log([]);
+		log(NaN);
+		log(0);
+		log(1);
+		log(undefined);
+		log(null); // no
+
+		// true // ok
+		// false // no
+		// ‘true’ // ok
+		// ‘false’ // no
+		// {}
+		// []
+		// NaN
+		// 0
+		// 1
+		// undefined
+		// null
+
+	</script>
+</body>
+</html>

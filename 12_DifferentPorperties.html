@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		function getDifferentProperties(obj1, obj2){
+			var differentProps = {};
+
+			for (var prop in obj1){
+				if (obj2[prop] === undefined){
+					// Trying to get the name bit since there is no constructor
+					// the name is object.
+					differentProps[prop] = 'comes from ' + obj1.constructor.name;
+				}
+			}
+
+			for (var prop in obj2){
+				// console.log(prop);
+				if (obj1[prop] === undefined)
+					differentProps[prop] = 'comes from obj2'
+			}
+
+			return differentProps;
+		}
+
+		var a = {
+			aProp: 1,
+			xProp: 2
+		}
+
+		var b = {
+			aProp: 1,
+			bProp: 1
+		}
+
+		var diff = getDifferentProperties(a, b);
+		printProps(diff);
+
+		function printProps(differenceObj){
+			for (var prop in differenceObj)
+				if (differenceObj.hasOwnProperty(prop))
+					console.log(prop, 'value: ', differenceObj[prop]);
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>McDonalds Menu</title>
+
+
+	<style media="screen">
+
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		/*body{
+			box-sizing: border-box;
+		}*/
+
+		/* header BEGIN */
+		header{
+			border: 1px solid;
+		}
+
+		header > div {
+			height: 100px;
+			border: 1px solid;
+			width: 80%;
+			display: flex;
+			flex-direction: row;
+			margin: auto;
+		}
+
+		#logo-mcd{
+			width: 100px;
+			height: 100px;
+		}
+
+		header h1{
+			line-height: 60px;
+			margin-top: 20px;
+			background: red;
+			color: orange;
+			border: 1px solid black;
+		}
+
+		.blue{
+			flex: 1;
+		}
+		/* Nav BEGIN */
+		#container {
+			width: 80%;
+			height: 300px;
+			margin: auto;
+			border: 1px solid;
+		}
+
+		/* MENU *************************/
+		/* todos los ul con fondo morado*/
+		nav ul {
+			list-style: none;
+			background: #2C3E50;
+			border-radius: 5px;
+			padding: 0 5px;
+			/*border: 1px solid black;*/
+		}
+
+		/* pone un contenido al final del ul para hacer el clear both */
+		/* es como un div al final. No necesitamos la altura */
+		nav ul:after {
+			color: red;
+			content: '.';
+			clear: both;
+			visibility: hidden;
+			display: block;
+			height: 0px;
+		}
+
+		/* posición relativa para que los hijos de los li puedan ser absolutos*/
+		/* flotado a la izquierda para que se acomoden por nivel de jerarquía*/
+		/* epaciado un poco con line-height*/
+		nav ul li{
+			position: relative;
+			float: left;
+			line-height: 20px;
+			/*outline: 1px solid yellow;*/
+		}
+
+		/* color blanco y display block para los links para poder manipularlos*/
+		/* como botones con padding si se necesita */
+		nav ul li a {
+			display: block;
+			color: #fff;
+			text-decoration: none;
+			padding: 14px 15px 15px;
+			font-size: 18px;
+			transition: 0.2s ease-out;
+		}
+
+		/* color para los links en hover y transición sobre el color */
+		nav ul li:hover > a{
+			color: #3498DB;
+		}
+
+		/* color para el link activo*/
+		nav ul li:active > a{
+			color: #2908B9;
+		}
+
+		/* SUBMENU *************************/
+		/* descendientes directos de ul li */
+		/* triangulito */
+		nav ul li > ul:before {
+			content: "";
+			border-style: solid;
+			border-width: 0 9px 9px 9px;
+			border-color: transparent transparent blue transparent;
+			width: 0;
+			height: 0;
+			position: absolute;
+			left: 15px;
+			top: 5px;
+		}
+
+		nav ul li > ul {
+			position: absolute;
+			left: 14px;
+			top: 80%;
+			padding-top: 13px;
+			background: none;
+			width: 150px;
+			z-index: -9999; /* */
+			opacity: 0;
+			transition: 0.3s ease-out;
+			/*display: none;*/
+		}
+
+		nav ul li:hover > ul {
+			display: block;
+			z-index: 100;
+			opacity: 1;
+			top: 95%;
+		}
+
+		nav ul li > ul li:first-child {
+			border-radius: 4px 4px 0 0;
+			padding-top: 3px;
+		}
+
+		nav ul li > ul li:last-child {
+			border-radius: 0 0 4px 4px ;
+		}
+
+		nav ul li > ul li {
+			padding: 0 3px 3px;
+			background: #2C3E50;
+			width: 100%;
+		}
+
+		nav ul li > ul li a {
+			display: block;
+			padding: 6px 9px;
+			border-radius: 2px;
+			font-size: 14px;
+		}
+
+		nav ul li > ul li:hover > a{
+			color: #FFF;
+			background-color: #3498DB;
+		}
+
+		nav ul li > ul li:active > a{
+			color: #FFF;
+			background-color: #2908B9;
+		}
+
+		/* SUBSUBMENU *************************/
+		nav ul li > ul li > ul:before {
+			content: "";
+			border-style: solid;
+			border-width: 0 9px 9px 9px;
+			border-color: transparent transparent blue transparent;
+			width: 0;
+			height: 0;
+			position: absolute;
+			left: 0;
+			top: 15px;
+			transform: rotate(270deg);
+		}
+
+		nav ul li > ul li > ul {
+			top: 0;
+			left: 90%;
+			padding: 0;
+			padding-left: 13px;
+			transition: 0.3s ease-out;
+		}
+
+		nav ul li > ul li:hover > ul {
+			display: block;
+			opacity: 1;
+			z-index: 100;
+			top: 0;
+			left: 100%;
+		}
+
+		nav ul .right{
+			float: right;
+		}
+
+		.login{
+			width: 300px;
+			hight: 200px;
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: -10px;
+			/*background: red;*/
+		}
+
+		/* En hover de un link, seleccionar el hermano sigiuiente */
+		nav ul li a:hover + .login{
+			display: block;
+		}
+
+		.login:hover{
+			display: block;
+		}
+
+		@media screen and (max-width: 600px) {
+			nav ul li{
+				float: none;
+				text-align: center;
+			}
+		}
+
+	</style>
+</head>
+
+<body>
+	<header>
+		<div>
+			<div>
+				<img id="logo-mcd" src="images/logo_mcd.png" alt="" />
+			</div>
+			<div class="blue">
+				<h1>McDonalds</h1>
+			</div>
+		</div>
+	</header>
+
+	<!--  The nav bar -->
+	<div id="container">
+		<nav>
+			<ul>
+				<li><a href="#">Sell</a>
+					<ul>
+						<li><a href="#">Sell1</a></li>
+						<li><a href="#">Sell2</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Some Other</a></li>
+				<li class="active"><a href="#">Buy</a>
+					<ul>
+						<li><a href="#">Buy1</a></li>
+						<li><a href="#">Buy2</a>
+							<ul>
+								<li><a href="#">Buy2.1</a></li>
+								<li><a href="#">Buy2.2</a>
+									<ul>
+										<li><a href="#">Buy2.2.1</a></li>
+										<li><a href="#">Buy2.2.2</a></li>
+										<li><a href="#">Buy2.2.3</a></li>
+										<li><a href="#">Buy2.2.4</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Buy2.3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Buy3</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Send</a>
+					<ul>
+						<li><a href="#">Send1</a></li>
+						<li><a href="#">Send2</a></li>
+					</ul>
+				</li>
+				<ul class="right">
+					<li><a href="#">log in</a>
+						<div class="login">
+							<form>
+							  Name:<br>
+							  <input type="text" name="name">
+							  <br>
+							  Password:<br>
+							  <input type="text" name="password">
+							</form>
+						</div>
+					</li>
+					<li><a href="#">Sign up</a></li>
+				</ul>
+			</ul>
+		</nav>
+
+
+
+	</div>
+	<!-- <article class="">
+
+	</article>
+	<footer>
+	</footer> -->
+
+	<script type="text/javascript">
+	</script>
+</body>
+</html>

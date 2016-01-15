@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var Person = function(name, lastName){
+			this.name =  name;
+			this.lastName = lastName;
+		}
+
+		Person.prototype.printFullName = function(){
+			return this.name + ' ' + this.lastName;
+		}
+
+		var Medic = function(name, lastname, specialty){
+			this.specialty = specialty;
+			Person.call(this, name, lastname);
+
+			this.Specialty = function(){
+				return this.specialty;
+			}
+		}
+
+		Medic.prototype = Object.create(Person.prototype);
+		Medic.prototype.constructor = Medic;
+
+		var medic = new Medic('juan', 'gomez', 'pediatra');
+		console.log(medic.printFullName());
+		console.log(medic.Specialty());
+
+
+	</script>
+</body>
+</html>

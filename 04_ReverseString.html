@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		"use strict";
+		var originalString = "najash";
+		var invertedString = [];
+		
+		// console.log(originalString.split("").reverse().join(""));
+
+		// for (var i = originalString.length - 1; i >= 0; i--){
+		// 	invertedString += originalString[i];
+		// }
+
+		for (var i = originalString.length - 1; i >= 0; i--)
+  			invertedString.push(originalString[i]);
+
+		// var invertedString = [];
+		// for (var i = originalString.length - 1, j = 0; i >= 0; i--, j++)
+		// invertedString[j] = originalString[i];
+		// invertedString.join('');
+
+		console.log("invertedString: ", invertedString.join(""));
+		console.log("invertedString: ", invertedString.sort());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>iOS Sticky</title>
+	<style type="text/css">
+		/* Select all elements inside #sticky-wrapper */
+		#sticky-wrapper * {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			/*border: 1px solid;*/
+		}
+		
+		#sticky-wrapper {
+			margin: 0 auto; /* to center de div */
+			height: 10em;
+			width: 15em;
+			overflow-y: scroll;
+			border: 1px solid;
+		}
+
+		#sticky-wrapper ul li{
+			list-style-type: none;
+			padding-left: 0.5em;
+		}
+
+		.sticky-header {
+			position: relative;
+			font-weight: bolder;
+			/*top: 10px;*/
+			/*padding-left: 10em;*/
+			font-size: 1.2em;
+			border: 1px solid black;
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="sticky-list-os">
+		<div id="sticky-wrapper">
+			<ul>
+				<li class="sticky-header">A</li><li>abc</li><li>acd</li><li>ade</li><li>aef</li><li>afg</li><li>abc</li><li>acd</li><li>ade</li><li>aef</li>
+				<li class="sticky-header">B</li><li>bac</li><li>bcd</li><li>bde</li><li>bef</li><li>bac</li><li>bcd</li><li>bde</li><li>bde</li><li>bde</li><li>bef</li>
+	            <li class="sticky-header">C</li><li>cab</li><li>cde</li><li>cef</li><li>cfg</li><li>cgh</li><li>cab</li><li>cde</li><li>cef</li><li>cfg</li><li>cgh</li>
+	            <li class="sticky-header">D</li><li>dab</li><li>dbc</li><li>def</li><li>dfg</li><li>dgh</li><li>dab</li><li>dbc</li><li>def</li><li>dfg</li><li>dgh</li><li>dab</li><li>dbc</li><li>def</li><li>dfg</li><li>dgh</li>
+	            <li class="sticky-header">E</li><li>edab</li><li>edbc</li><li>edef</li><li>edfg</li><li>edgh</li><li>edab</li><li>edbc</li><li>edef</li><li>edfg</li><li>edgh</li><li>edab</li><li>edbc</li><li>edef</li><li>edfg</li><li>edgh</li><li>edhi</li>
+	            <li class="sticky-header">F</li><li>fedab</li><li>fedbc</li><li>fedef</li><li>fedfg</li><li>fedgh</li><li>fedab</li><li>fedbc</li><li>fedef</li><li>fedfg</li><li>fedgh</li><li>fedab</li><li>fedbc</li><li>fedef</li><li>fedfg</li><li>fedgh</li><li>fedhi</li>
+	            <li class="sticky-header">G</li><li>gbrtn</li><li>ggvre</li><li>gwdwe</li>
+	            <li class="sticky-header">H</li><li>hwdwe</li><li>hwdwe</li>
+	            <li class="sticky-header">I</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li><li>iwdwe</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- The general idea is tho check the top of the "sticky letter" according
+	to its parent element, and when scrolling, adjusting the top of the letter to be the updated scroll position  -->
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(){
+			var headers = document.getElementsByClassName('sticky-header');
+			var stickyWrapper = document.getElementById('sticky-wrapper');
+			var initialPositions = [];
+
+			// Cache initial positions of the headers relative to its parent element "sticky-wraper" div
+			for (var i = 0; i < headers.length; i++){
+				// offsetTop read-only property returns the distance of the current element relative to the top of the offsetParent node.
+				initialPositions.push(headers[i].offsetTop - stickyWrapper.offsetTop);
+				console.log(initialPositions[i], " - ", headers[i].offsetTop, " - ", stickyWrapper.offsetTop, " - ", headers[i].style.top);
+				// console.log(headers[i]);
+			}
+
+			stickyWrapper.addEventListener('scroll',function ( ) {
+				var currOffset = stickyWrapper.scrollTop;
+				console.log(currOffset);
+
+				for (var i = 0; i < headers.length; i++){
+					var difference = initialPositions[i] - currOffset;
+					console.log(i, " - ", difference);
+
+					// !headers[i+1] = will be undefines (falsy) when next to last and then become true 
+					// do we need this?
+					var adjust = !headers[i+1] ? 0 : currOffset < 24 ?
+                    initialPositions[i+1] - currOffset - 24 : 0;
+
+                    
+                    if (difference < 0){
+                    	// if you went out of bonds go an place yourself at the begining of the scroll
+                    	nextTop = currOffset - initialPositions[i] + adjust + 'px';
+                    } else {
+                    	// else, stay where you are
+                    	nextTop = '0px'
+                    }
+
+                    headers[i].style.top =  nextTop;
+
+                    // if (nextTop !== '0px' && i > 0){
+                    // 	console.log("hello");
+                    // 	headers[i-1].style.top = '0px';
+                    // }
+				}
+			});
+		});
+	</script>
+</body>
+</html>

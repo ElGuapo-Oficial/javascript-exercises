@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+		.redDiv{
+			background-color: red;
+/*			height: 120px;
+			width: 120px;*/
+		}
+		.blueDiv{
+			background-color: blue;
+/*			height: 110px;
+			width: 110px;*/
+		}
+		.greenDiv{
+			background-color: green;
+/*			height: 100px;
+			width: 100px;*/
+		}
+		
+		.page{
+			position: absolute;
+			top: 0px;
+			left: 300px;
+			transition: all 0.4s linear;
+		}
+
+		.page.active{
+			left: 0px;
+		}
+
+		.mainDiv{
+/*			width: 100px;
+			height: 100px;*/
+			border: 2px solid black;
+			position: relative;
+			overflow: hidden;
+		}
+
+		button{
+			margin: 20px 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="mainDiv" class="mainDiv">
+		<div class="redDiv page">
+			<div style="width: 200px">
+				<h1>Hola 1</h1>
+				<h1>Hola 1</h1>
+				<h1>Hola 1</h1>
+			</div>
+		</div>
+		<div class='blueDiv page'>
+			<div style="width: 250px">
+				<h1>Hola 2</h1>
+				<h1>Hola 2</h1>
+				<h1>Hola 2</h1>
+				<h1>Hola 2</h1>
+			</div>
+		</div>
+		<div class='greenDiv page'>
+			<div style="width: 300px">
+				<h1>Hola 3</h1>
+				<h1>Hola 3</h1>
+				<h1>Hola 3</h1>
+				<h1>Hola 3</h1>
+				<h1>Hola 3</h1>
+				<h1>Hola 3</h1>
+			</div>
+		</div>
+	</div>
+	<button id='prev-button'>Prev</button>
+	<button id='next-button'>Next</button>
+	<button id='submit-button'>Submit</button>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var nextButton = document.getElementById('next-button');
+		var prevButton = document.getElementById('prev-button');
+		var submitButton = document.getElementById('submit-button');
+
+		var pageController = (function(container) {
+			var activePage = 0;
+			var pages = [], numPages;
+			var mainContainer = document.getElementById(container);
+
+			var initialize = (function(){
+				submitButton.style.display = 'none';
+				for (var i = 0; i < mainContainer.children.length; i++) {
+					pages.push(mainContainer.children[i]);
+				}
+				numPages = pages.length;
+
+				pages[activePage].className += ' active';
+				setContainerSize();
+			})();
+
+			function setPage(forward){
+				setContainerSize();
+				if (forward){
+					if (pages[activePage].className.indexOf('active') === -1)
+						pages[activePage].className += ' active';
+				} else {
+					pages[activePage + 1].className = pages[activePage + 1].className.replace(' active', '');
+				}
+			}
+
+			function setContainerSize(){
+				mainContainer.style.height = pages[activePage].clientHeight + "px";
+				mainContainer.style.width = pages[activePage].clientWidth + "px";
+			}
+
+			function setButtonStatus(){
+				if (activePage === numPages - 1){
+					nextButton.style.display = 'none';
+					submitButton.style.display = 'inline-block';
+				} else if (activePage === 0) {
+					prevButton.disabled = true;
+				} else {
+					prevButton.disabled = false;
+					nextButton.style.display = 'inline-block';
+					submitButton.style.display = 'none';
+				}
+			}
+
+			function nextPage(e){
+				e.preventDefault();
+				activePage += activePage === numPages - 1 ? 0 : 1;
+				setPage(true);
+				setButtonStatus();
+			}
+
+			function prevPage(e){
+				e.preventDefault();
+				activePage -= activePage === 0 ? 0 : 1;
+				setPage(false);
+				setButtonStatus();
+			}
+
+			return{
+				nextPage: nextPage,
+				prevPage: prevPage
+			}
+		})('mainDiv');
+
+		document.addEventListener("DOMContentLoaded", function(){
+			nextButton.addEventListener('click', pageController.nextPage);
+			prevButton.addEventListener('click', pageController.prevPage);
+		})
+	</script>
+</body>
+</html>

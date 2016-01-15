@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		function foo1(){
+		   var fn = function(){
+		      console.log(this.foo);
+		   };
+		   return { foo:'bar' };
+		 }
+		 
+		function foo2(){ 
+		   var fn = function(){
+		       console.log(this.foo); 
+		   };
+		   return { foo:'baz' };
+		}
+
+
+		// So... these functions return plain objects with one property, i do not see the use of the declared functions inside of it.
+		console.log(foo1());
+		console.log(foo2());
+
+
+	</script>
+</body>
+</html>
