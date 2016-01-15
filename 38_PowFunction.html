@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var n = myPowerFn(3);
+		console.log(n(3));
+
+		function myPowerFn(num){
+				return function(pow){
+					var result = 1;
+					for (var i = 0; i < pow; i++){
+						result *= num;
+					}
+					return result;
+				}
+		}
+
+	</script>
+</body>
+</html>

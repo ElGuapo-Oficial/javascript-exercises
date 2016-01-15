@@ -26,28 +26,48 @@
 
 	<script type="text/javascript">
 		var table = document.getElementsByTagName("table")[0];
-		var tbody = table.children[0];
-		var trs = tbody.children;
+		var tBody = table.children[0];
 
-		var sortedElements = [];
+		function getTableTrs(table){
+			// var tbody = table.children[0];
+			var trs = tBody.children;
 
-		function getTableTds(){
-			var tableTds = [];
+			var tableTrs = [];
 			for (var i = 1; i < trs.length; i++){
-				tableTds[i] = {};
+				tableTrs[i] = {};
 				var tds = trs[i].children;
 				for (var j = 0; j < tds.length; j++){
-					tableTds[i][j] = tds[j].innerText;
+					tableTrs[i][j] = tds[j].innerText;
 				}
 			}
-			return tableTds;
+			return tableTrs;
 		}
 
-		var sortedElements = getTableTds();
+		function createNewTBody(tableRows){
+			var tBody = document.createElement('tbody');
+			for (var i = 0; i < tableRows.length; i++){
+				var tr = document.createElement('tr');
+				for (var tdContent in tableRows[i]){
+					var td = document.createElement('td');
+					td.innerText = tableRows[i][tdContent];
+					tr.appendChild(td);
+				}
+				tBody.appendChild(tr);
+			}
 
-		sortedElements.sort(function(a, b){
+			return tBody;
+		}
+
+		var trs = getTableTrs(table);
+
+		trs.sort(function(a, b){
 			return a[1] > b[1];
 		});
+
+		var newTBody = createNewTBody(trs);
+		setTimeout(function(){
+			table.replaceChild(newTBody, tBody);
+		}, 1500);
 
 
 	</script>
