@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var d = new Date();
+
+		var modifyDate = (function(){
+			function goToFutureDays(d, days){
+				d.setDate(d.getDate() + days);
+			}
+
+			function goToPastDays(d, days){
+				d.setDate(d.getDate() - days);
+			}
+
+			function goToFutureHours(d, hours){
+				d.setTime(d.getTime() + (hours*60*60*1000));
+			}
+
+			function goToPastHours(d, hours){
+				d.setTime(d.getTime() - (hours*60*60*1000));
+			}
+
+			return {
+				goToFutureDays: goToFutureDays,
+				goToPastDays: goToPastDays,
+				goToFutureHours: goToFutureHours,
+				goToPastHours: goToPastHours,
+			}
+		})();
+
+		console.log(d);
+		modifyDate.goToFutureDays(d, 1);
+		console.log(d);
+		modifyDate.goToPastDays(d, 1);
+		console.log(d);
+		modifyDate.goToFutureHours(d, 5);
+		console.log(d);
+		modifyDate.goToPastHours(d, 5);
+		console.log(d);
+
+	</script>
+</body>
+</html>
